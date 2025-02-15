@@ -11,10 +11,10 @@ const Footer = () => {
     >
       <div className="container mx-auto px-6 flex flex-col items-center">
         <div className="flex space-x-6 text-sky-600 text-2xl mb-4">
-          <a href="#" className="hover:text-sky-800 transition"><FaFacebook /></a>
+          <a href="" className="hover:text-sky-800 transition"><FaFacebook /></a>
           <a href="#" className="hover:text-sky-800 transition"><FaTwitter /></a>
           <a href="#" className="hover:text-sky-800 transition"><FaInstagram /></a>
-          <a href="#" className="hover:text-sky-800 transition"><FaLinkedin /></a>
+          <a href="https://www.linkedin.com/in/amankumarweb/" className="hover:text-sky-800 transition"><FaLinkedin /></a>
           <a href="#" className="hover:text-sky-800 transition"><FaYoutube /></a>
         </div>
         <p className="text-sm">&copy; {new Date().getFullYear()} All rights reserved.</p>

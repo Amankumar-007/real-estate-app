@@ -2,8 +2,8 @@ import { useState, useContext } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
-import Header from "../components/homepage/Header";
-import PropertyDetail from "./PropertyDetail";
+import { motion } from "framer-motion";
+
 
 const API_URL = "http://localhost:5000";
 
@@ -41,48 +41,77 @@ const Login = () => {
     };
 
     return (
-        <>
-      
         <div className="flex justify-center items-center min-h-screen bg-gray-100">
-            <div className="bg-white p-8 shadow-lg rounded-lg w-96">
-                <h2 className="text-2xl font-bold text-center mb-4">Login</h2>
-                
-                {error && <p className="text-red-500 text-sm text-center">{error}</p>}
+            <motion.div
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, ease: "easeOut" }}
+                className="bg-white/90 backdrop-blur-lg p-8 shadow-2xl rounded-xl w-96 border border-gray-200"
+            >
+                <motion.h1 
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.2 }}
+                    className="text-3xl font-bold text-center text-gray-800"
+                >
+                    Login
+                </motion.h1>
+                <motion.p 
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.4 }}
+                    className="text-gray-500 text-center mt-2"
+                >
+                    Welcome back! Please enter your details.
+                </motion.p>
 
-                <form onSubmit={handleLogin} className="space-y-4">
-                    <input
+                {error && (
+                    <motion.p 
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ duration: 0.5 }}
+                        className="text-red-500 text-sm text-center mt-3"
+                    >
+                        {error}
+                    </motion.p>
+                )}
+
+                <form onSubmit={handleLogin} className="space-y-5 mt-5">
+                    <motion.input
+                        whileFocus={{ scale: 1.02 }}
                         type="email"
-                        placeholder="Email"
+                        placeholder="Enter your email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring focus:ring-blue-300"
+                        className="w-full px-4 py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 transition bg-gray-50"
                         required
                     />
-                    <input
+                    <motion.input
+                        whileFocus={{ scale: 1.02 }}
                         type="password"
-                        placeholder="Password"
+                        placeholder="Enter your password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
-                        className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring focus:ring-blue-300"
+                        className="w-full px-4 py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 transition bg-gray-50"
                         required
                     />
 
-                    <button
+                    <motion.button
                         type="submit"
-                        className="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition"
+                        whileHover={{ scale: 1.03 }}
+                        whileTap={{ scale: 0.97 }}
+                        className="w-full bg-blue-500 text-white py-3 rounded-md hover:bg-blue-600 transition-all font-semibold shadow-md"
                         disabled={loading}
                     >
                         {loading ? "Logging in..." : "Login"}
-                    </button>
+                    </motion.button>
                 </form>
 
-                <p className="text-center text-sm mt-4">
-                    Don't have an account? <a href="/register" className="text-blue-600">Register</a>
+                <p className="text-center text-sm mt-5 text-gray-500">
+                    Don't have an account? <a href="/register" className="text-blue-500 font-semibold hover:underline">Sign up</a>
                 </p>
-            </div>
+            </motion.div>
         </div>
-        <PropertyDetail email={email}/>
-        </>
     );
 };
 

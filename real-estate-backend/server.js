@@ -4,6 +4,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const cors = require('cors');
 require('dotenv').config();
+const fs = require("fs");
 
 const app = express();
 app.use(cors());
@@ -51,6 +52,62 @@ const messageSchema = new mongoose.Schema({
 });
 
 const Message = mongoose.model('Message', messageSchema);
+
+
+
+
+
+
+const FILE_PATH = "./properties.json";
+
+// Load properties
+app.get("/properties", (req, res) => {
+    fs.readFile(FILE_PATH, "utf8", (err, data) => {
+        if (err) return res.status(500).json({ error: "Error reading file" });
+        res.json(JSON.parse(data));
+    });
+});
+
+// Block/unblock property
+app.put("/properties/block/:id", (req, res) => {
+    const propertyId = parseInt(req.params.id);
+    fs.readFile(FILE_PATH, "utf8", (err, data) => {
+        if (err) return res.status(500).json({ error: "Error reading file" });
+
+        let properties = JSON.parse(data);
+        properties = properties.map(property => 
+            property.id === propertyId ? { ...property, blocked: !property.blocked } : property
+        );
+
+        fs.writeFile(FILE_PATH, JSON.stringify(properties, null, 2), (err) => {
+            if (err) return res.status(500).json({ error: "Error writing file" });
+            res.json({ message: "Property status updated", properties });
+        });
+    });
+});
+
+// Delete property (Soft delete)
+app.put("/properties/delete/:id", (req, res) => {
+    const propertyId = parseInt(req.params.id);
+    fs.readFile(FILE_PATH, "utf8", (err, data) => {
+        if (err) return res.status(500).json({ error: "Error reading file" });
+
+        let properties = JSON.parse(data);
+        properties = properties.map(property => 
+            property.id === propertyId ? { ...property, deleted: true } : property
+        );
+
+        fs.writeFile(FILE_PATH, JSON.stringify(properties, null, 2), (err) => {
+            if (err) return res.status(500).json({ error: "Error writing file" });
+            res.json({ message: "Property deleted (soft delete)", properties });
+        });
+    });
+});
+
+
+
+
+
 
 
 // Authentication Middleware

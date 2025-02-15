@@ -11,7 +11,8 @@
     "size": "2,500 sqft",
     "pricePerSqft": "$1,400/sqft",
     "rating": 4.8,
-    "time": "Listed 2 days ago"
+    "time": "Listed 2 days ago",
+    "blocked": true
   },
   {
     "id": 2,
@@ -94,7 +95,7 @@
     "baths": 4,
     "size": "3,000 sqft",
     "pricePerSqft": "$1,250/sqft",
-    "rating": 5.0,
+    "rating": 5,
     "time": "Listed 2 days ago"
   },
   {
@@ -138,44 +139,43 @@
     "pricePerSqft": "$770/sqft",
     "rating": 4.8,
     "time": "Listed 2 weeks ago"
-  },{
-  "heroSection": [
-    {
-      "id": 101,
-      "title": "Modern Luxury Home",
-      "image": "https://images.pexels.com/photos/7031406/pexels-photo-7031406.jpeg",
-      "location": "Beverly Hills, CA",
-      "description": "A stunning modern luxury home with breathtaking city views.",
-      "price": "$5,000,000"
-    }
-  ],
-
-  "trendingProperties": [
-    {
-      "id": 1,
-      "title": "Luxury Apartment in New York",
-      "image": "https://images.pexels.com/photos/6267516/pexels-photo-6267516.jpeg",
-      "location": "Manhattan, NY",
-      "description": "A luxurious apartment with a stunning view of the New York skyline.",
-      "price": "$3,500,000"
-    },
-    {
-      "id": 2,
-      "title": "Beachfront Villa in Miami",
-      "image": "https://images.pexels.com/photos/18280830/pexels-photo-18280830.jpeg",
-      "location": "Miami Beach, FL",
-      "description": "A beautiful beachfront villa with modern amenities and ocean views.",
-      "price": "$4,800,000"
-    },
-    {
-      "id": 3,
-      "title": "Modern Condo in Los Angeles",
-      "image": "https://images.pexels.com/photos/221540/pexels-photo-221540.jpeg",
-      "location": "Los Angeles, CA",
-      "description": "A stylish modern condo located in the heart of LA.",
-      "price": "$1,200,000"
-    }
-  ]
-}
-
+  },
+  {
+    "heroSection": [
+      {
+        "id": 101,
+        "title": "Modern Luxury Home",
+        "image": "https://images.pexels.com/photos/7031406/pexels-photo-7031406.jpeg",
+        "location": "Beverly Hills, CA",
+        "description": "A stunning modern luxury home with breathtaking city views.",
+        "price": "$5,000,000"
+      }
+    ],
+    "trendingProperties": [
+      {
+        "id": 1,
+        "title": "Luxury Apartment in New York",
+        "image": "https://images.pexels.com/photos/6267516/pexels-photo-6267516.jpeg",
+        "location": "Manhattan, NY",
+        "description": "A luxurious apartment with a stunning view of the New York skyline.",
+        "price": "$3,500,000"
+      },
+      {
+        "id": 2,
+        "title": "Beachfront Villa in Miami",
+        "image": "https://images.pexels.com/photos/18280830/pexels-photo-18280830.jpeg",
+        "location": "Miami Beach, FL",
+        "description": "A beautiful beachfront villa with modern amenities and ocean views.",
+        "price": "$4,800,000"
+      },
+      {
+        "id": 3,
+        "title": "Modern Condo in Los Angeles",
+        "image": "https://images.pexels.com/photos/221540/pexels-photo-221540.jpeg",
+        "location": "Los Angeles, CA",
+        "description": "A stylish modern condo located in the heart of LA.",
+        "price": "$1,200,000"
+      }
+    ]
+  }
 ]

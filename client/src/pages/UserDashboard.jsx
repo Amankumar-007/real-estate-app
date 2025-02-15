@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import properties from "../components/seller/properties.json"; 
-import { FaHeart, FaTrash } from "react-icons/fa";
+import { FaHeart, FaTrash, FaUser } from "react-icons/fa";
 
 const UserDashboard = () => {
   const { user } = useContext(AuthContext);
@@ -10,30 +10,42 @@ const UserDashboard = () => {
 
   useEffect(() => {
     if (user && user.role === "user") {
-      // ✅ Load saved properties
+      // ✅ Load saved properties safely
       const storedSaved = JSON.parse(localStorage.getItem("favorites")) || [];
-      setSavedProperties(properties.filter((property) => storedSaved.includes(property.id.toString())));
+      const filteredSaved = properties.filter((property) => 
+        property?.id && storedSaved.includes(property.id.toString())
+      );
+      setSavedProperties(filteredSaved);
 
-      // ✅ Load liked properties
+      // ✅ Load liked properties safely
       const storedLiked = JSON.parse(localStorage.getItem("likedProperties")) || [];
-      setLikedProperties(properties.filter((property) => storedLiked.includes(property.id.toString())));
+      const filteredLiked = properties.filter((property) => 
+        property?.id && storedLiked.includes(property.id.toString())
+      );
+      setLikedProperties(filteredLiked);
     }
   }, [user]);
 
-  // ✅ Remove a property from saved list
+  // ✅ Remove a property from saved list safely
   const removeSavedProperty = (id) => {
-    const updatedSaved = savedProperties.filter((property) => property.id !== id);
+    const updatedSaved = savedProperties.filter((property) => property?.id !== id);
     setSavedProperties(updatedSaved);
 
     // Update localStorage
     const storedSaved = JSON.parse(localStorage.getItem("favorites")) || [];
-    const newSaved = storedSaved.filter((propId) => propId !== id.toString());
+    const newSaved = storedSaved.filter((propId) => propId !== id?.toString());
     localStorage.setItem("favorites", JSON.stringify(newSaved));
   };
 
   return (
     <div className="max-w-6xl mx-auto p-6">
-      <h1 className="text-3xl font-bold mb-6">User Dashboard</h1>
+      {/* Display User Name */}
+      {user && (
+        <div className="flex items-center gap-4 bg-white p-4 rounded-lg shadow-md mb-6">
+          <FaUser className="text-blue-500 text-3xl" />
+          <h1 className="text-3xl font-bold text-gray-800">Welcome, {user.name}!</h1>
+        </div>
+      )}
 
       {/* Saved Properties */}
       <h2 className="text-2xl font-semibold mb-4">Saved Properties</h2>
@@ -42,15 +54,15 @@ const UserDashboard = () => {
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {savedProperties.map((property) => (
-            <div key={property.id} className="bg-white p-4 rounded-lg shadow-md">
-              <img src={property.image} alt={property.title} className="w-full h-40 object-cover rounded-lg mb-3" />
-              <h3 className="text-lg font-semibold">{property.title}</h3>
-              <p className="text-gray-500">{property.location}</p>
-              <p className="font-bold">${property.price}</p>
+            <div key={property?.id} className="bg-white p-4 rounded-lg shadow-md">
+              <img src={property?.image} alt={property?.title} className="w-full h-40 object-cover rounded-lg mb-3" />
+              <h3 className="text-lg font-semibold">{property?.title}</h3>
+              <p className="text-gray-500">{property?.location}</p>
+              <p className="font-bold">${property?.price}</p>
 
               {/* Remove from saved */}
               <button
-                onClick={() => removeSavedProperty(property.id)}
+                onClick={() => removeSavedProperty(property?.id)}
                 className="mt-3 bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-500 flex items-center gap-2"
               >
                 <FaTrash />
@@ -68,11 +80,11 @@ const UserDashboard = () => {
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {likedProperties.map((property) => (
-            <div key={property.id} className="bg-white p-4 rounded-lg shadow-md">
-              <img src={property.image} alt={property.title} className="w-full h-40 object-cover rounded-lg mb-3" />
-              <h3 className="text-lg font-semibold">{property.title}</h3>
-              <p className="text-gray-500">{property.location}</p>
-              <p className="font-bold">${property.price}</p>
+            <div key={property?.id} className="bg-white p-4 rounded-lg shadow-md">
+              <img src={property?.image} alt={property?.title} className="w-full h-40 object-cover rounded-lg mb-3" />
+              <h3 className="text-lg font-semibold">{property?.title}</h3>
+              <p className="text-gray-500">{property?.location}</p>
+              <p className="font-bold">${property?.price}</p>
               <div className="mt-3 text-red-500 flex items-center gap-2">
                 <FaHeart />
                 Liked

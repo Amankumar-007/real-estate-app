@@ -15,6 +15,7 @@ import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { ThemeContext } from "../../context/ThemeContext"; // Import Theme Context
+import Animated from "../others/animated";
 
 const Home = () => {
   const { user } = useContext(AuthContext);
@@ -24,6 +25,7 @@ const Home = () => {
     <div className={`${theme === "dark" ? "bg-gray-900 text-white" : "bg-gray-100 text-gray-900"} min-h-screen`}>
       {/* Header */}
       <Header />
+      {/* <Animated/> */}
 
       <motion.div initial={{ opacity: 0, y: 50 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1 }}>
         <HeroSection />

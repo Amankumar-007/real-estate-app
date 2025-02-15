@@ -6,7 +6,7 @@ import { Search } from "lucide-react";
 
 export default function Properties() {
   const [searchTerm, setSearchTerm] = useState("");
-  const [filteredProperties, setFilteredProperties] = useState(propertiesData);
+  const [filteredProperties, setFilteredProperties] = useState([]);
   const location = useLocation();
 
   useEffect(() => {
@@ -15,11 +15,16 @@ export default function Properties() {
 
     setSearchTerm(query);
 
-    const filtered = propertiesData.filter(
-      (property) =>
-        property.title.toLowerCase().includes(query.toLowerCase()) ||
-        property.location.toLowerCase().includes(query.toLowerCase())
+    if (!propertiesData || propertiesData.length === 0) {
+      setFilteredProperties([]);
+      return;
+    }
+
+    const filtered = propertiesData.filter((property) =>
+      (property?.title?.toLowerCase() || "").includes(query.toLowerCase()) ||
+      (property?.location?.toLowerCase() || "").includes(query.toLowerCase())
     );
+    
     setFilteredProperties(filtered);
   }, [location.search]);
 
@@ -48,7 +53,7 @@ export default function Properties() {
           </p>
         ) : (
           filteredProperties.map((property) => (
-            <ListingItem key={property.id} property={property} />
+            <ListingItem key={property?.id} property={property} />
           ))
         )}
       </div>

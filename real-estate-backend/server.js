@@ -10,6 +10,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+
 // MongoDB Connection
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/property-app', {
   useNewUrlParser: true,
@@ -36,6 +37,8 @@ const propertySchema = new mongoose.Schema({
   title: { type: String, required: true },
   description: { type: String, required: true },
   location: { type: String, required: true },
+  beds: { type: Number, required: true },    // Added
+  baths: { type: Number, required: true },   // Added
   price: { type: String, required: true },
   image: { type: String, required: true },
   seller: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
@@ -58,7 +61,7 @@ const Message = mongoose.model('Message', messageSchema);
 
 
 
-const FILE_PATH = "./properties.json";
+const FILE_PATH = "../client/src/components/seller/properties.json";
 
 // Load properties
 app.get("/properties", (req, res) => {
@@ -66,6 +69,45 @@ app.get("/properties", (req, res) => {
         if (err) return res.status(500).json({ error: "Error reading file" });
         res.json(JSON.parse(data));
     });
+});
+
+app.post("/properties/add", (req, res) => {
+  const newProperty = req.body;
+
+  fs.readFile(FILE_PATH, "utf8", (err, data) => {
+      if (err) return res.status(500).json({ error: "Error reading file" });
+
+      let properties = JSON.parse(data);
+      newProperty.id = properties.length ? properties[properties.length - 1].id + 1 : 1;
+      newProperty.blocked = false;
+      newProperty.deleted = false;
+
+      properties.push(newProperty);
+
+      fs.writeFile(FILE_PATH, JSON.stringify(properties, null, 2), (err) => {
+          if (err) return res.status(500).json({ error: "Error writing file" });
+          res.json({ message: "Property added successfully", property: newProperty });
+      });
+  });
+});
+
+app.put("/properties/edit/:id", (req, res) => {
+  const propertyId = parseInt(req.params.id);
+  const updatedData = req.body;
+
+  fs.readFile(FILE_PATH, "utf8", (err, data) => {
+      if (err) return res.status(500).json({ error: "Error reading file" });
+
+      let properties = JSON.parse(data);
+      properties = properties.map(property => 
+          property.id === propertyId ? { ...property, ...updatedData } : property
+      );
+
+      fs.writeFile(FILE_PATH, JSON.stringify(properties, null, 2), (err) => {
+          if (err) return res.status(500).json({ error: "Error writing file" });
+          res.json({ message: "Property updated successfully", properties });
+      });
+  });
 });
 
 // Block/unblock property
@@ -87,21 +129,33 @@ app.put("/properties/block/:id", (req, res) => {
 });
 
 // Delete property (Soft delete)
-app.put("/properties/delete/:id", (req, res) => {
-    const propertyId = parseInt(req.params.id);
-    fs.readFile(FILE_PATH, "utf8", (err, data) => {
-        if (err) return res.status(500).json({ error: "Error reading file" });
+app.delete("/properties/delete/:id", (req, res) => {
+  const propertyId = parseInt(req.params.id);  // Convert ID from string to number if necessary
+  fs.readFile(FILE_PATH, "utf8", (err, data) => {
+      if (err) {
+          console.error("Error reading file:", err);
+          return res.status(500).json({ error: "Error reading file" });
+      }
 
-        let properties = JSON.parse(data);
-        properties = properties.map(property => 
-            property.id === propertyId ? { ...property, deleted: true } : property
-        );
+      let properties = JSON.parse(data);
+      const propertyIndex = properties.findIndex((property) => property.id === propertyId);
 
-        fs.writeFile(FILE_PATH, JSON.stringify(properties, null, 2), (err) => {
-            if (err) return res.status(500).json({ error: "Error writing file" });
-            res.json({ message: "Property deleted (soft delete)", properties });
-        });
-    });
+      if (propertyIndex === -1) {
+          return res.status(404).json({ error: "Property not found" });
+      }
+
+      // Perform a soft delete
+      properties[propertyIndex].deleted = true; // Mark the property as deleted
+
+      fs.writeFile(FILE_PATH, JSON.stringify(properties, null, 2), (err) => {
+          if (err) {
+              console.error("Error writing file:", err);
+              return res.status(500).json({ error: "Error writing file" });
+          }
+
+          res.json({ message: "Property deleted (soft delete)", properties });
+      });
+  });
 });
 
 
@@ -411,6 +465,7 @@ app.get('/users', auth, async (req, res) => {
   }
 });
 
+// Seller: Add Property
 
 
 

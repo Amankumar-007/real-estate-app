@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import { motion } from "framer-motion";
 
-
 const API_URL = "http://localhost:5000";
 
 const Login = () => {
@@ -24,10 +23,8 @@ const Login = () => {
             const response = await axios.post(`${API_URL}/auth/login`, { email, password });
             const { token, user } = response.data;
             
-            // Store user data and token in context
             login(user, token);
             
-            // Redirect based on role
             if (user.role === 'admin') {
                 navigate("/");
             } else {
@@ -41,18 +38,18 @@ const Login = () => {
     };
 
     return (
-        <div className="flex justify-center items-center min-h-screen bg-gray-100">
+        <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-700">
             <motion.div
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, ease: "easeOut" }}
-                className="bg-white/90 backdrop-blur-lg p-8 shadow-2xl rounded-xl w-96 border border-gray-200"
+                className="bg-gray-900/95 backdrop-blur-xl p-8 shadow-xl rounded-2xl w-96 border border-gray-700"
             >
                 <motion.h1 
                     initial={{ opacity: 0, y: -10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.2 }}
-                    className="text-3xl font-bold text-center text-gray-800"
+                    className="text-4xl font-extrabold text-center text-white"
                 >
                     Login
                 </motion.h1>
@@ -60,9 +57,9 @@ const Login = () => {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.4 }}
-                    className="text-gray-500 text-center mt-2"
+                    className="text-gray-400 text-center mt-3"
                 >
-                    Welcome back! Please enter your details.
+                    Sign in to access your account.
                 </motion.p>
 
                 {error && (
@@ -70,45 +67,45 @@ const Login = () => {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ duration: 0.5 }}
-                        className="text-red-500 text-sm text-center mt-3"
+                        className="text-red-400 text-sm text-center mt-4"
                     >
                         {error}
                     </motion.p>
                 )}
 
-                <form onSubmit={handleLogin} className="space-y-5 mt-5">
+                <form onSubmit={handleLogin} className="space-y-6 mt-6">
                     <motion.input
-                        whileFocus={{ scale: 1.02 }}
+                        whileFocus={{ scale: 1.02, borderColor: "#3B82F6" }}
                         type="email"
-                        placeholder="Enter your email"
+                        placeholder="Email address"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        className="w-full px-4 py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 transition bg-gray-50"
+                        className="w-full px-4 py-3 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-800 text-gray-200 placeholder-gray-500 transition"
                         required
                     />
                     <motion.input
-                        whileFocus={{ scale: 1.02 }}
+                        whileFocus={{ scale: 1.02, borderColor: "#3B82F6" }}
                         type="password"
-                        placeholder="Enter your password"
+                        placeholder="Password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
-                        className="w-full px-4 py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 transition bg-gray-50"
+                        className="w-full px-4 py-3 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-800 text-gray-200 placeholder-gray-500 transition"
                         required
                     />
 
                     <motion.button
                         type="submit"
-                        whileHover={{ scale: 1.03 }}
+                        whileHover={{ scale: 1.03, backgroundColor: "#2563EB" }}
                         whileTap={{ scale: 0.97 }}
-                        className="w-full bg-blue-500 text-white py-3 rounded-md hover:bg-blue-600 transition-all font-semibold shadow-md"
+                        className="w-full bg-gradient-to-r from-blue-600 to-blue-500 text-white py-3 rounded-lg hover:from-blue-700 hover:to-blue-600 transition-all font-semibold shadow-lg"
                         disabled={loading}
                     >
-                        {loading ? "Logging in..." : "Login"}
+                        {loading ? "Signing in..." : "Sign In"}
                     </motion.button>
                 </form>
 
-                <p className="text-center text-sm mt-5 text-gray-500">
-                    Don't have an account? <a href="/register" className="text-blue-500 font-semibold hover:underline">Sign up</a>
+                <p className="text-center text-sm mt-6 text-gray-400">
+                    New here? <a href="/register" className="text-blue-400 font-semibold hover:text-blue-300 transition">Create an account</a>
                 </p>
             </motion.div>
         </div>

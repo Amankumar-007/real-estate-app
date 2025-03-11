@@ -1,13 +1,15 @@
-import { FaSearch, FaBell, FaBars, FaTimes } from "react-icons/fa"; // Import hamburger and close icons
+import { FaSearch, FaBell, FaBars, FaTimes } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { ThemeContext } from "../../context/ThemeContext";
 import { MdDarkMode, MdLightMode } from "react-icons/md";
+import Input from "../others/Input";
+
 
 const Header = () => {
   const [searchTerm, setSearchTerm] = useState("");
-  const [menuOpen, setMenuOpen] = useState(false); // State for mobile menu
+  const [menuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();
   const { user, logout } = useContext(AuthContext);
   const { theme, toggleTheme } = useContext(ThemeContext);
@@ -19,7 +21,6 @@ const Header = () => {
     }
   };
 
-  // ✅ Define function to get the dashboard route based on user role
   const getDashboardRoute = () => {
     if (!user) return "/";
     if (user.role === "admin") return "/admin";
@@ -30,34 +31,32 @@ const Header = () => {
   return (
     <header className="shadow-md">
       <div className="flex justify-between items-center max-w-6xl mx-auto p-3">
-        {/* Logo */}
         <Link to="/">
           <h1 className="font-bold text-sm sm:text-xl flex flex-wrap">
             <span className="text-gray-400">Home </span>
             <span className="text-fuchsia-500">Vista</span>
           </h1>
         </Link>
+        <Input/>
 
-        {/* Hamburger Menu for Mobile */}
         <div className="sm:hidden">
           <button onClick={() => setMenuOpen(!menuOpen)} className="text-gray-600">
             {menuOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
           </button>
         </div>
 
-        {/* Desktop Navigation (Hidden on Mobile) */}
         <ul className="hidden sm:flex gap-4 items-center">
-          <Link to="/">
-            <li className="text-gray-400 hover:text-white transition">Home</li>
+          <Link to="/contact">
+            <li className="text-gray-400 hover:text-white transition">contact</li>
           </Link>
           <Link to="/about">
             <li className="text-gray-400 hover:text-white transition">About</li>
           </Link>
 
-          {/* Notification Icon */}
-          {user && (
+          {/* Show notification bell only for sellers */}
+          {user && user.role === "seller" && (
             <button
-              onClick={() => navigate(user.role === "admin" ? "/admin/notifications" : "/notifications")}
+              onClick={() => navigate("/notifications")}
               className="relative text-gray-400 hover:text-white transition"
             >
               <FaBell size={22} />
@@ -67,7 +66,6 @@ const Header = () => {
             </button>
           )}
 
-          {/* Show dashboard button based on role */}
           {user ? (
             <>
               <Link to={getDashboardRoute()}>
@@ -96,13 +94,11 @@ const Header = () => {
           )}
         </ul>
 
-        {/* Theme Toggle */}
         <button onClick={toggleTheme} className="text-yellow-600 hover:text-gray-400 transition">
           {theme === "light" ? <MdDarkMode size={28} /> : <MdLightMode size={28} />}
         </button>
       </div>
 
-      {/* ✅ Mobile Menu - Shows when hamburger is clicked */}
       {menuOpen && (
         <div className="sm:hidden bg-white shadow-md">
           <ul className="flex flex-col items-center gap-4 py-4">
@@ -112,11 +108,11 @@ const Header = () => {
             <Link to="/about" onClick={() => setMenuOpen(false)}>
               <li className="text-gray-600 hover:text-white transition">About</li>
             </Link>
-            {user && (
+            {user && user.role === "seller" && (
               <li
                 onClick={() => {
                   setMenuOpen(false);
-                  navigate(user.role === "admin" ? "/admin/notifications" : "/notifications");
+                  navigate("/notifications");
                 }}
                 className="text-gray-600 hover:text-white transition flex items-center gap-2"
               >

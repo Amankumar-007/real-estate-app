@@ -13,13 +13,11 @@ const NotificationDashboard = () => {
     }
   }, [user]);
 
-  // ✅ Mark a notification as read
   const markAsRead = (index) => {
     const updatedNotifications = [...notifications];
     updatedNotifications[index].read = true;
     setNotifications(updatedNotifications);
 
-    // Update in localStorage
     const storedNotifications = JSON.parse(localStorage.getItem("sellerNotifications")) || {};
     storedNotifications[user.email] = updatedNotifications;
     localStorage.setItem("sellerNotifications", JSON.stringify(storedNotifications));
@@ -51,7 +49,6 @@ const NotificationDashboard = () => {
                       {new Date(notification.timestamp).toLocaleString()}
                     </p>
 
-                    {/* Show property details */}
                     {property && (
                       <div className="mt-2">
                         <p className="text-gray-600">Property: {property.title}</p>
@@ -59,7 +56,7 @@ const NotificationDashboard = () => {
                       </div>
                     )}
                   </div>
-                  
+
                   {!notification.read && (
                     <button
                       onClick={() => markAsRead(index)}

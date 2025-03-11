@@ -1,7 +1,7 @@
 [
   {
     "id": 1,
-    "title": "Luxury Apartment in New York",
+    "title": "Luxury Apartment in ",
     "image": "https://images.pexels.com/photos/6267516/pexels-photo-6267516.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     "location": "Manhattan, NY",
     "description": "A luxurious apartment with a stunning view of the New York skyline.",
@@ -11,7 +11,9 @@
     "size": "2,500 sqft",
     "pricePerSqft": "$1,400/sqft",
     "rating": 4.8,
-    "time": "Listed 2 days ago"
+    "time": "Listed 2 days ago",
+    "deleted": true,
+    "blocked": false
   },
   {
     "id": 2,
@@ -25,7 +27,8 @@
     "size": "3,800 sqft",
     "pricePerSqft": "$1,300/sqft",
     "rating": 4.9,
-    "time": "Listed 1 week ago"
+    "time": "Listed 1 week ago",
+    "deleted": true
   },
   {
     "id": 3,
@@ -61,13 +64,18 @@
     "image": "https://images.pexels.com/photos/3935346/pexels-photo-3935346.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     "location": "Chicago, IL",
     "description": "A high-rise penthouse offering a spectacular view of Chicago’s skyline.",
-    "price": "$5,500,000",
+    "price": "100",
     "beds": 3,
     "baths": 3,
     "size": "2,800 sqft",
     "pricePerSqft": "$1,800/sqft",
     "rating": 4.9,
-    "time": "Listed 1 day ago"
+    "time": "Listed 1 day ago",
+    "bedrooms": "1",
+    "bathrooms": "2",
+    "imageUrl": "https://images.pexels.com/photos/2251247/pexels-photo-2251247.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    "blocked": false,
+    "deleted": true
   },
   {
     "id": 6,
@@ -94,7 +102,7 @@
     "baths": 4,
     "size": "3,000 sqft",
     "pricePerSqft": "$1,250/sqft",
-    "rating": 5.0,
+    "rating": 5,
     "time": "Listed 2 days ago"
   },
   {
@@ -113,7 +121,7 @@
   },
   {
     "id": 9,
-    "title": "Elegant Victorian House",
+    "title": "Elegant Victorian aman",
     "image": "https://images.pexels.com/photos/280222/pexels-photo-280222.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     "location": "Boston, MA",
     "description": "A classic Victorian house with high ceilings and hardwood floors.",
@@ -123,7 +131,8 @@
     "size": "4,200 sqft",
     "pricePerSqft": "$570/sqft",
     "rating": 4.7,
-    "time": "Listed 4 days ago"
+    "time": "Listed 4 days ago",
+    "deleted": true
   },
   {
     "id": 10,
@@ -137,45 +146,99 @@
     "size": "3,500 sqft",
     "pricePerSqft": "$770/sqft",
     "rating": 4.8,
-    "time": "Listed 2 weeks ago"
-  },{
-  "heroSection": [
-    {
-      "id": 101,
-      "title": "Modern Luxury Home",
-      "image": "https://images.pexels.com/photos/7031406/pexels-photo-7031406.jpeg",
-      "location": "Beverly Hills, CA",
-      "description": "A stunning modern luxury home with breathtaking city views.",
-      "price": "$5,000,000"
-    }
-  ],
-
-  "trendingProperties": [
-    {
-      "id": 1,
-      "title": "Luxury Apartment in New York",
-      "image": "https://images.pexels.com/photos/6267516/pexels-photo-6267516.jpeg",
-      "location": "Manhattan, NY",
-      "description": "A luxurious apartment with a stunning view of the New York skyline.",
-      "price": "$3,500,000"
-    },
-    {
-      "id": 2,
-      "title": "Beachfront Villa in Miami",
-      "image": "https://images.pexels.com/photos/18280830/pexels-photo-18280830.jpeg",
-      "location": "Miami Beach, FL",
-      "description": "A beautiful beachfront villa with modern amenities and ocean views.",
-      "price": "$4,800,000"
-    },
-    {
-      "id": 3,
-      "title": "Modern Condo in Los Angeles",
-      "image": "https://images.pexels.com/photos/221540/pexels-photo-221540.jpeg",
-      "location": "Los Angeles, CA",
-      "description": "A stylish modern condo located in the heart of LA.",
-      "price": "$1,200,000"
-    }
-  ]
-}
-
+    "time": "Listed 2 weeks ago",
+    "blocked": false
+  },
+  {
+    "title": "you",
+    "description": "dfasfasafsa",
+    "price": "500",
+    "location": "florida",
+    "bedrooms": "1",
+    "bathrooms": "1",
+    "image": "https://images.pexels.com/photos/30318143/pexels-photo-30318143/free-photo-of-romantic-couple-with-coffee-in-vancouver-cafe.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=loada",
+    "id": null,
+    "blocked": false,
+    "deleted": false
+  },
+  {
+    "id": 0,
+    "title": "luxury amann",
+    "image": "https://images.pexels.com/photos/2950003/pexels-photo-2950003.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "location": "new york city",
+    "description": "this is good proeprty",
+    "price": "70",
+    "beds": "1",
+    "baths": "1",
+    "size": "1000",
+    "pricePerSqft": "10",
+    "rating": "4",
+    "time": "recently",
+    "blocked": false,
+    "deleted": true
+  },
+  {
+    "title": "home",
+    "image": "https://images.pexels.com/photos/276724/pexels-photo-276724.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    "location": "agra",
+    "description": "good home",
+    "price": "10000",
+    "beds": "1",
+    "baths": "1",
+    "size": "1000",
+    "pricePerSqft": "1000",
+    "rating": "4",
+    "time": "recent",
+    "id": 99,
+    "blocked": false,
+    "deleted": false
+  },
+  {
+    "title": "luxury villa",
+    "image": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.keralahousedesigns.com%2F2018%2F02%2Ftiny-low-cost-india-home-design.html&psig=AOvVaw0WcAkU-OLUUTxytfQr6Bz7&ust=1739861158045000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCLD3xIaOyosDFQAAAAAdAAAAABAE",
+    "location": "sikandra",
+    "description": "best home",
+    "price": "10000",
+    "beds": "2",
+    "baths": "1",
+    "size": "1000",
+    "pricePerSqft": "20",
+    "rating": "4",
+    "time": "recently",
+    "id": 100,
+    "blocked": false,
+    "deleted": false
+  },
+  {
+    "title": "sdfsasfda",
+    "image": "https://images.pexels.com/photos/30146008/pexels-photo-30146008/free-photo-of-traditional-turkish-coffee-brewing-on-hot-coals.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    "location": "dfs",
+    "description": "g",
+    "price": "gjh",
+    "beds": "1",
+    "baths": "hjhj",
+    "size": "hghg",
+    "pricePerSqft": "hjg",
+    "rating": "hjhj",
+    "time": "g",
+    "id": 101,
+    "blocked": false,
+    "deleted": true
+  },
+  {
+    "title": "baba ka dhaba",
+    "image": "https://images.pexels.com/photos/186077/pexels-photo-186077.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    "location": "florida",
+    "description": "best home",
+    "price": "1000",
+    "beds": "1",
+    "baths": "2",
+    "size": "1000",
+    "pricePerSqft": "100",
+    "rating": "4",
+    "time": "recently",
+    "id": 102,
+    "blocked": false,
+    "deleted": false
+  }
 ]

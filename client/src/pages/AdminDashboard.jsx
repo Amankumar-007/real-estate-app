@@ -47,14 +47,19 @@ const AdminDashboard = () => {
     };
 
     // Toggle Block User
-    const toggleBlockUser = async (id) => {
+    const toggleBlockUser = async (id, currentStatus) => {
         try {
             const response = await fetch(`${API_URL}/admin/users/block/${id}`, {
                 method: "PUT",
-                headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${localStorage.getItem("token")}`,
+                },
+                body: JSON.stringify({ status: currentStatus === "Blocked" ? "Active" : "Blocked" })
             });
-            const updatedUser = await response.json();
-            setUsers(users.map(user => (user._id === id ? { ...user, status: updatedUser.status } : user)));
+            if (!response.ok) throw new Error("Failed to update user status");
+            
+            setUsers(users.map(user => user._id === id ? { ...user, status: currentStatus === "Blocked" ? "Active" : "Blocked" } : user));
         } catch (error) {
             console.error("Error toggling user block status:", error);
         }
@@ -73,32 +78,9 @@ const AdminDashboard = () => {
         }
     };
 
-    // Toggle Block Property
-    const toggleBlockProperty = async (id) => {
-        try {
-            const response = await fetch(`${API_URL}/properties/block/${id}`, {
-                method: "PUT",
-                headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-            });
-            const data = await response.json();
-            setProperties(data.properties.filter(property => !property.deleted)); // Exclude deleted properties
-        } catch (error) {
-            console.error("Error blocking/unblocking property:", error);
-        }
-    };
-
     // Soft Delete Property
-    const softDeleteProperty = async (id) => {
-        try {
-            const response = await fetch(`${API_URL}/properties/delete/${id}`, {
-                method: "PUT",
-                headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-            });
-            const data = await response.json();
-            setProperties(data.properties.filter(property => !property.deleted)); // Exclude deleted properties
-        } catch (error) {
-            console.error("Error deleting property:", error);
-        }
+    const deleteProperty = (id) => {
+        setProperties(properties.filter(property => property._id !== id));
     };
 
     return (
@@ -144,7 +126,7 @@ const AdminDashboard = () => {
                                 </div>
                                 <div className="flex gap-2">
                                     <button
-                                        onClick={() => toggleBlockUser(user._id)}
+                                        onClick={() => toggleBlockUser(user._id, user.status)}
                                         className={`px-3 py-1 rounded shadow-md ${
                                             user.status === "Blocked" ? "bg-green-500 text-white hover:bg-green-400" : "bg-yellow-500 text-white hover:bg-yellow-400"
                                         }`}
@@ -168,30 +150,16 @@ const AdminDashboard = () => {
                     <div className="bg-white p-6 rounded-xl shadow-sm">
                         <h2 className="text-xl font-semibold mb-4">Manage Properties</h2>
                         {properties.length === 0 ? <p>No properties available.</p> : properties.map(property => (
-                            <div key={property.id} className="p-4 shadow-md flex justify-between items-center bg-white rounded-lg mt-2">
+                            <div key={property._id} className="p-4 shadow-md flex justify-between items-center bg-white rounded-lg mt-2">
                                 <div>
                                     <p className="text-lg font-semibold">{property.title}</p>
-                                    <p className="text-gray-600">{property.location}</p>
-                                    <p className={`text-sm font-bold ${property.blocked ? "text-red-600" : "text-green-600"}`}>
-                                        {property.blocked ? "Blocked" : "Active"}
-                                    </p>
                                 </div>
-                                <div className="flex gap-2">
-                                    <button
-                                        onClick={() => toggleBlockProperty(property.id)}
-                                        className={`px-3 py-1 rounded shadow-md ${
-                                            property.blocked ? "bg-green-500 text-white hover:bg-green-400" : "bg-yellow-500 text-white hover:bg-yellow-400"
-                                        }`}
-                                    >
-                                        {property.blocked ? "Unblock" : "Block"}
-                                    </button>
-                                    <button
-                                        onClick={() => softDeleteProperty(property.id)}
-                                        className="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-500"
-                                    >
-                                        Delete
-                                    </button>
-                                </div>
+                                <button
+                                    onClick={() => deleteProperty(property._id)}
+                                    className="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-500"
+                                >
+                                    Delete
+                                </button>
                             </div>
                         ))}
                     </div>

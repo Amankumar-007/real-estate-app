@@ -12,7 +12,7 @@
     "pricePerSqft": "$1,400/sqft",
     "rating": 4.8,
     "time": "Listed 2 days ago",
-    "blocked": true
+    "blocked": false
   },
   {
     "id": 2,

@@ -17,6 +17,7 @@ import PaymentSuccessPage from "./pages/payment/PaymentSuccessPage";
 import MessagePage from "./pages/messagePage/MessagePage";
 import SellerDashboard from "./pages/SellerDashboard";
 import BackToHomeWrapper from "./components/others/BackToHomeWrapper"; // Import wrapper component
+import ContactUs from "./pages/about/Contact";
 
 const App = () => {
   return (
@@ -30,6 +31,7 @@ const App = () => {
             <Route path="/search" element={<Search />} />
             <Route path="/properties" element={<Properties />} />
             <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<ContactUs/>} />
             <Route path="/sellerDashboard" element={<SellerDashboard />} />
             <Route
               path="/dashboard"

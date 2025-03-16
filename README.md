@@ -20,7 +20,7 @@ A modern **Real Estate Web App** that allows users to **buy, sell, and manage pr
 
 ## 📸 Screenshots  
 ### **🏠 Homepage**  
-![Homepage](https://your-image-link.com/homepage.png)  
+![Homepage]![image](https://github.com/user-attachments/assets/06b13562-3c9f-4312-a14a-c4c9ad8a5f76)
 
 ### **📋 Property Listing Page**  
 ![Listing Page](https://your-image-link.com/listing.png)  
